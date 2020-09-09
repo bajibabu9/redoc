@@ -5,10 +5,11 @@ import { AppStore } from '../../services';
 import { ExternalDocumentation } from '../ExternalDocumentation/ExternalDocumentation';
 import { AdvancedMarkdown } from '../Markdown/AdvancedMarkdown';
 
-import { H1, H2, MiddlePanel, Row, Section, ShareLink } from '../../common-elements';
+import { MiddlePanel, Row, Section, ShareLink } from '../../common-elements';
 import { ContentItemModel } from '../../services/MenuBuilder';
 import { GroupModel } from '../../services/models';
 import { Operation } from '../Operation/Operation';
+import { ContentItemHeader } from './styled.elements';
 
 export interface ContentItemsProps {
   items: ContentItemModel[];
@@ -70,17 +71,16 @@ const middlePanelWrap = component => <MiddlePanel compact={true}>{component}</Mi
 @observer
 export class SectionItem extends React.Component<ContentItemProps> {
   render() {
-    const { name, description, externalDocs, level } = this.props.item as GroupModel;
+    const { name, description, externalDocs } = this.props.item as GroupModel;
 
-    const Header = level === 2 ? H2 : H1;
     return (
       <>
         <Row>
           <MiddlePanel compact={false}>
-            <Header>
+            <ContentItemHeader>
               <ShareLink to={this.props.item.id} />
               {name}
-            </Header>
+            </ContentItemHeader>
           </MiddlePanel>
         </Row>
         <AdvancedMarkdown source={description || ''} htmlWrap={middlePanelWrap} />

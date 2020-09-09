@@ -1,7 +1,7 @@
 import { observer } from 'mobx-react';
 import * as React from 'react';
 
-import { Badge, DarkRightPanel, H2, MiddlePanel, Row } from '../../common-elements';
+import { Badge, DarkRightPanel, MiddlePanel, Row } from '../../common-elements';
 
 import { ShareLink } from '../../common-elements/linkify';
 
@@ -19,10 +19,11 @@ import { ResponsesList } from '../Responses/ResponsesList';
 import { ResponseSamples } from '../ResponseSamples/ResponseSamples';
 import { SecurityRequirements } from '../SecurityRequirement/SecurityRequirement';
 
+import { ContentItemHeader } from '../ContentItems/styled.elements';
+
 const OperationRow = styled(Row)`
   backface-visibility: hidden;
   contain: content;
-
   overflow: hidden;
 `;
 
@@ -73,10 +74,10 @@ export class Operation extends React.Component<OperationProps, OperationState> {
         {options => (
           <OperationRow>
             <MiddlePanel>
-              <H2>
+              <ContentItemHeader>
                 <ShareLink to={operation.id} />
                 {summary} {deprecated && <Badge type="warning"> Deprecated </Badge>}
-              </H2>
+              </ContentItemHeader>
               {options.pathInMiddlePanel && (
                 <Endpoint operation={operation} inverted={true} handleUrl={this.onUrlChanged} />
               )}

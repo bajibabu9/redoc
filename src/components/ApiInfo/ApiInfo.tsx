@@ -2,8 +2,7 @@ import { observer } from 'mobx-react';
 import * as React from 'react';
 
 import { AppStore } from '../../services/AppStore';
-
-import { MiddlePanel, Row, Section } from '../../common-elements/';
+import { MiddlePanel, Row, Section, UnderlinedHeader } from '../../common-elements/';
 import { ExternalDocumentation } from '../ExternalDocumentation/ExternalDocumentation';
 import { Markdown } from '../Markdown/Markdown';
 import { StyledMarkdownBlock } from '../Markdown/styled.elements';
@@ -68,14 +67,12 @@ export class ApiInfo extends React.Component<ApiInfoProps> {
       )) ||
       null;
 
-    const version = (info.version && <span>({info.version})</span>) || null;
-
     return (
       <Section>
         <Row>
           <MiddlePanel className="api-info">
             <ApiHeader>
-              {info.title} {version}
+              {info.title}
             </ApiHeader>
             {!hideDownloadButton && (
               <p>
@@ -102,6 +99,7 @@ export class ApiInfo extends React.Component<ApiInfoProps> {
             </StyledMarkdownBlock>
             <Markdown source={store.spec.info.description} />
             {externalDocs && <ExternalDocumentation externalDocs={externalDocs} />}
+            <UnderlinedHeader></UnderlinedHeader>
           </MiddlePanel>
         </Row>
       </Section>
