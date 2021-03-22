@@ -14,6 +14,22 @@ import { ConsoleEditor } from './ConsoleEditor';
 
 const qs = require('qs');
 
+// From https://gist.github.com/hunan-rostomyan/28e8702c1cecff41f7fe64345b76f2ca
+// Given a cookie key `name`, returns the value of
+// the cookie or `null`, if the key is not found.
+function getCookie(name: string): string|null {
+	const nameLenPlus = (name.length + 1);
+	return document.cookie
+		.split(';')
+		.map(c => c.trim())
+		.filter(cookie => {
+			return cookie.substring(0, nameLenPlus) === `${name}=`;
+		})
+		.map(cookie => {
+			return decodeURIComponent(cookie.substring(nameLenPlus));
+		})[0] || null;
+}
+
 export interface ConsoleViewerProps {
   operation: OperationModel;
   additionalHeaders?: object;
@@ -72,7 +88,7 @@ export class ConsoleViewer extends React.Component<ConsoleViewerProps, ConsoleVi
     }
     const contentType = (mediaType && mediaType.name) || 'application/json';
     const contentTypeHeader = { 'Content-Type': contentType };
-
+    const csrfHeaders = {'X-XSRF-Token': getCookie('csrftoken')}
     const schemeMapper: Map<string, SecuritySchemeModel> = new Map<string, SecuritySchemeModel>();
     schemes.forEach(scheme => {
       schemeMapper.set(scheme.id, scheme);
@@ -88,7 +104,7 @@ export class ConsoleViewer extends React.Component<ConsoleViewerProps, ConsoleVi
     //     securityHeaders[id] = schemeMapper.get(id).token;
     //   }
     // });
-    const headers = { ...additionalHeaders, ...contentTypeHeader, ...securityHeaders };
+    const headers = { ...additionalHeaders, ...contentTypeHeader, ...securityHeaders, ...csrfHeaders };
     let result;
     try {
       result = await this.invoke(endpoint, value, headers);
