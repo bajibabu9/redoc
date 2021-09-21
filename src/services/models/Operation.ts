@@ -88,7 +88,7 @@ export class OperationModel implements IMenuItem {
 
     this.id =
       operationSpec.operationId !== undefined
-        ? 'operation/' + operationSpec.summary
+        ? 'operation/' + operationSpec.operationId
         : parent !== undefined
         ? parent.id + this.pointer
         : this.pointer;

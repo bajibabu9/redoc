@@ -29,7 +29,11 @@ export class ApiInfo extends React.Component<ApiInfoProps> {
   render() {
     const { store } = this.props;
     const { info, externalDocs } = store.spec;
-    const hideDownloadButton = store.options.hideDownloadButton;
+    /**
+    * const hideDownloadButton = store.options.hideDownloadButton;
+    */
+
+    const hideDownloadButton = true;
 
     const downloadFilename = info.downloadFileName;
     const downloadLink = info.downloadLink;

@@ -2,7 +2,20 @@ import * as classnames from 'classnames';
 import { darken } from 'polished';
 
 import { deprecatedCss, ShelfIcon } from '../../common-elements';
-import styled, { css } from '../../styled-components';
+import styled, { extensionsHook, css } from '../../styled-components';
+
+export const DownloadButton = styled.a`
+  border: 1px solid ${props => props.theme.colors.primary.main};
+  color: ${props => props.theme.colors.primary.main};
+  font-weight: normal;
+  margin-left: 0.5em;
+  padding: 4px 8px 4px;
+  display: inline-block;
+  text-decoration: none;
+  cursor: pointer;
+
+  ${extensionsHook('DownloadButton')};
+`;
 
 export const OperationBadge = styled.span.attrs((props: { type: string }) => ({
   className: `operation-type ${props.type}`,
@@ -163,6 +176,17 @@ export const MenuItemTitle = styled.span<{ width?: string }>`
   text-overflow: ellipsis;
 `;
 
+export const  DownloadOpernApi = styled.div`
+  ${({ theme }) => `
+  font-size: 0.8em;
+  margin-top: ${theme.spacing.unit * 2}px;
+  padding: 0 ${theme.spacing.unit * 4}px;
+  text-align: left;
+  opacity: 0.7;
+  border-top: 1px solid ${darken(0.1, theme.menu.backgroundColor)};
+`};
+`;
+
 export const RedocAttribution = styled.div`
   ${({ theme }) => `
   font-size: 0.8em;
@@ -176,9 +200,8 @@ export const RedocAttribution = styled.div`
   a:visited,
   a:hover {
     color: ${theme.menu.textColor} !important;
-    border-top: 1px solid ${darken(0.1, theme.menu.backgroundColor)};
     padding: ${theme.spacing.unit}px 0;
     display: block;
-  }
+  },
 `};
 `;

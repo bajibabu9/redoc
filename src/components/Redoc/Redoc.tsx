@@ -53,7 +53,7 @@ export class Redoc extends React.Component<RedocProps> {
                   />
                 )) ||
                   null}
-                <SideMenu menu={menu} />
+                <SideMenu menu={menu} apiStore={store}/>
               </StickyResponsiveSidebar>
               <ApiContentWrap className="api-content">
                 <ApiInfo store={store} />
